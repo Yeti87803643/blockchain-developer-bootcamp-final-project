@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/brightlink_frontend/static/css/main.5ddd067a.chunk.css",
+    "main.js": "/brightlink_frontend/static/js/main.d9266699.chunk.js",
+    "main.js.map": "/brightlink_frontend/static/js/main.d9266699.chunk.js.map",
+    "runtime-main.js": "/brightlink_frontend/static/js/runtime-main.061eb25a.js",
+    "runtime-main.js.map": "/brightlink_frontend/static/js/runtime-main.061eb25a.js.map",
+    "static/js/2.3e9d0ab1.chunk.js": "/brightlink_frontend/static/js/2.3e9d0ab1.chunk.js",
+    "static/js/2.3e9d0ab1.chunk.js.map": "/brightlink_frontend/static/js/2.3e9d0ab1.chunk.js.map",
+    "static/js/3.ecfdca46.chunk.js": "/brightlink_frontend/static/js/3.ecfdca46.chunk.js",
+    "static/js/3.ecfdca46.chunk.js.map": "/brightlink_frontend/static/js/3.ecfdca46.chunk.js.map",
+    "index.html": "/brightlink_frontend/index.html",
+    "static/css/main.5ddd067a.chunk.css.map": "/brightlink_frontend/static/css/main.5ddd067a.chunk.css.map",
+    "static/js/2.3e9d0ab1.chunk.js.LICENSE.txt": "/brightlink_frontend/static/js/2.3e9d0ab1.chunk.js.LICENSE.txt",
+    "static/media/SolarPunkPainting.f8d155ba.jpg": "/brightlink_frontend/static/media/SolarPunkPainting.f8d155ba.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.061eb25a.js",
+    "static/js/2.3e9d0ab1.chunk.js",
+    "static/css/main.5ddd067a.chunk.css",
+    "static/js/main.d9266699.chunk.js"
+  ]
+}
