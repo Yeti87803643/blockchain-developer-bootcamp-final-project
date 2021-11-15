@@ -3,14 +3,15 @@ import "./App.css";
 import Web3 from 'web3'
 import background from "./SolarPunkPainting.jpg";
 import BrightLink from './artifacts/contracts/BrightLink.json';
-import map from "./artifacts/deployments/map.json"
+import map from "./artifacts/deployments/map.json";
 
 // uses functional component syntax
 function App(){
 
   // web3 is whatever is injected by metamask, else localhost
   // add deployed address for Solidity Storage contract
-  const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
+  const web3 = new Web3(Web3.givenProvider)//|| "http://localhost:8545")
+  
   // define vars and functions to update them, associated to react state
   
   const [account, setOwnerAccount] = useState()
