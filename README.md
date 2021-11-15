@@ -15,6 +15,10 @@ The contract contains a function that triggers a Chainlink oracle to make a GET 
 
 For the community greening project the remote sensing scripts use Google Earth Engine to calculate the normalised-difference vegetation index for the given area on the given dates. This is done using three separate data sources from three different satellites (Landsat, MODIS, Sentinel-2). For each dataset, the ndvi is averaged (arithmetic mean) over time and space to give a single value for the ndvi of the region for the given time period. The three values (one from each satellite) are each pulled onchain by a chainlink oracle using the weighted mean. By default, the three satellites are equally weighted, but the contract owner can update this as necessary (.e.g if the lower resolution of MODIS gives less confidence, if one dataset has more cloudy images, etc).
 
-## Viabilty
+## Public URL
 
-I know this is a big and complex project, but I have been thinking about this idea for quite a long time, have a lot of experience in geospatial programming , and have built a smaller PoC version of the system already. I also intend to mock the oracles to some extent, by not actually passing the coordinates to the app (this will require new job to be hosted by a chainlink node operator) but intead just making a GET request via an existing oracle for a fixed area. This will reduce the complexity of the project but also reduce the functionality as only one predetermined area can be accessed.
+The public-facing front-end for this project is at https://yeti87803643.github.io/brightlink_frontend/. Here, a user can connect using MetaMask and interact with the contract.
+
+<img src="Assets/app_sreeenshot.jpg" width=1500>
+
+
