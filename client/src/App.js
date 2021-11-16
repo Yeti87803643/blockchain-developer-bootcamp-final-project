@@ -1,19 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./App.css";
 import Web3 from 'web3'
-import background from "./SolarPunkPainting.jpg";
+import background from "./TreeBorder2.jpg";
 import BrightLink from './artifacts/contracts/BrightLink.json';
 import map from "./artifacts/deployments/map.json";
+import {getEthereum} from "./getEthereum"
 
 // uses functional component syntax
 function App(){
 
-  // web3 is whatever is injected by metamask, else localhost
-  // add deployed address for Solidity Storage contract
-  const web3 = new Web3(Web3.givenProvider)//|| "http://localhost:8545")
-  
-  // define vars and functions to update them, associated to react state
-  
   const [account, setOwnerAccount] = useState()
   const [chainID, setChainID] = useState()
   const [network, setNetwork] = useState()
@@ -27,19 +22,41 @@ function App(){
   const[weight3, setWeight3] = useState()
   const [connected, connect] = useState()
 
-
+  
+  // loadBlockChain detects metamask account
+  // and network ID 
   async function loadBlockChain(){
-    
+
+    const ethereum = await getEthereum()
+    let web3
+
+    if (ethereum) {
+        web3 = new Web3(ethereum)
+    } else if (window.web3) {
+        web3 = window.web3
+    } else {
+        const provider = new Web3.providers.HttpProvider(
+            "http://127.0.0.1:8545"
+        );
+        web3 = new Web3(provider)
+    }
+
+    // // Try to enable accounts (connect metamask)
+    // const ethereum = await getEthereum()
+    const accounts = await ethereum.request({method:'eth_requestAccounts'})
     const chain = await web3.eth.getChainId()
     const net = await web3.eth.net.getNetworkType()
-    const accounts = await web3.eth.getAccounts()
+
+    //const accounts = await web3.eth.getAccounts()
     const acc = accounts[0]
+    console.log("web3: " + web3)
+    console.log("accounts: " + accounts)
+    console.log("connected account: " + acc)
 
     setNetwork(net)
     setChainID(chain)
     setOwnerAccount(acc)
 
-    console.log(chain)
     var address = ''
 
     if (chain =='1337'){
@@ -59,24 +76,28 @@ function App(){
     }
 
     setContractAddress(address)
-    const _contract = new web3.eth.Contract(BrightLink.abi, address, account)
+    const _contract = new web3.eth.Contract(BrightLink.abi, address, acc)
 
     setContract(_contract)
-    console.log(address)
-    console.log(_contract)
-    console.log(chain)
+    console.log("address: " + address)
+    console.log("contract:  " + _contract)
+    console.log("chain: " + chain)
     console.log("contract successfully loaded")
     
     setWeight1(100)
     setWeight2(100)
     setWeight3(100)
-    connect(true)
+    
+    if (account){
+      connect(true)
+    }
   }
 
 
 
   async function AddNewCustomer(){
-   
+
+    console.log("INSIDE FUNC, account = " + account)
     await contract.methods.addNewCustomer(customerAddress,donorAddress,agreementValue)
       .send({'from':account})
         .then(console.log("successfully added new customer"))
@@ -118,42 +139,76 @@ function App(){
     backgroundRepeat: 'no-repeat',
     width: '100vw',
     height: '100vh',
+  
     }}>
     
+    <br></br>
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
     <h1>BrightLink </h1>
+    </li>
 
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    <h2>Incentivized urban greening validated by satellite data</h2>
+    </li>
+
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
     {<button onClick={loadBlockChain} > Connect Wallet</button>}
-    <li style={{ color: 'green'}}>
-        {connected? <p><b>connected</b></p> : null}
-      </li>
+    </li>
+      
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'green'}}>
+    {connected? <p><b>CONNECTED!</b></p> : null}
+    </li>
 
-   <p>BrightLink is deployed at: {contractAddress}</p>
-   <p>Connected to: {account}</p>
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    <p>Contract is deployed at: {contractAddress}</p>
+    </li>
+
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    <p>Connected to account: {account}</p>
+    </li>
+
+      
     <br></br>
     <br></br>
 
-    <p><b>Set new agreement</b></p>
-    <p><i>(you can only have one active agreement at a time)</i></p>
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    <p><h3>Start new project </h3></p>
+    </li>
+
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+      <p>Customer (Ethereum address)&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
     <input 
       type="text"
       value={customerAddress}
       placeholder="Set Customer Address"
       onChange={e => setCustomerAddress(e.target.value)} />
+      </li>
+
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    <p>Donor (Ethereum address)&nbsp;&nbsp;&nbsp;&nbsp;</p>
 
     <input 
         type="text"
         value={donorAddress}
         placeholder="Set Donor Address"
         onChange={e => setDonorAddress(e.target.value)} />
+    </li>
+
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    <p>Funding Value (Dai)&nbsp;&nbsp;&nbsp;&nbsp;</p>
 
     <input
       type="text"
       value={agreementValue}
       placeholder="Set Agreement Value"
       onChange={e => setAgreementValue(e.target.value)} />
+    </li>
+    <br></br>
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    {<button onClick={AddNewCustomer}>CONFIRM</button>}
+    </li>
 
-    {<button onClick={AddNewCustomer}>Start New Agreement</button>}
-    
     <br></br>
     <br></br>
 
