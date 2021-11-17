@@ -17,8 +17,18 @@ For the community greening project the remote sensing scripts use Google Earth E
 
 ## Public URL
 
-The public-facing front-end for this project is at https://yeti87803643.github.io/brightlink_frontend/. Here, a user can connect using MetaMask and interact with the contract.
+The public-facing front-end for this project is at "https://yeti87803643.github.io/blockchain-developer-bootcamp-final-project/". Here, a user can connect using MetaMask and interact with the contract.
 
 <img src="Assets/app_sreeenshot.jpg" width=1500>
 
+## MOCKING
 
+Ths app currently requires Google Earth Engine login credentials to update the vegetation index for a given location. Therefore, for this submission I decided to mock the API endpoints queried by the Chainlink oracles. They stay constant and therefore a payout should be returned to the donor rather than awarded to the customer in this version of the system (there is another version, closer to production, for which this is not the case, at www.github.com/jmcook1186/Brightlink) but I reasoned that this version wouold be harder to evaluate for the bootcamp as it currently has awkward dependencies that I was not able to resolve before the submission deadline. 
+
+
+## Instructions
+
+1) start a brownie console connected to kovan and approve dai spending from the donor account
+2) `dai.approve(contract.address,amount in wei, {"from":donor address})
+3) make sure the connected wallet is open in metamask when the confirm button is clicked
+4) click "documentation" in upper left corner for more information

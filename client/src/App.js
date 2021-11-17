@@ -41,6 +41,8 @@ function App(){
         web3 = new Web3(provider)
     }
 
+    
+
     // // Try to enable accounts (connect metamask)
     // const ethereum = await getEthereum()
     const accounts = await ethereum.request({method:'eth_requestAccounts'})
@@ -49,8 +51,6 @@ function App(){
 
     //const accounts = await web3.eth.getAccounts()
     const acc = accounts[0]
-    console.log("web3: " + web3)
-    console.log("accounts: " + accounts)
     console.log("connected account: " + acc)
 
     setNetwork(net)
@@ -75,12 +75,13 @@ function App(){
       throw 'Please connect to a valid testnet'
     }
 
+
     setContractAddress(address)
     const _contract = new web3.eth.Contract(BrightLink.abi, address, acc)
-
+    
     setContract(_contract)
     console.log("address: " + address)
-    console.log("contract:  " + _contract)
+    console.log("contract:  " + _contract.methods)
     console.log("chain: " + chain)
     console.log("contract successfully loaded")
     
@@ -90,15 +91,21 @@ function App(){
     
     if (account){
       connect(true)
+
     }
+
+    web3.eth.Contract.defaultAccount = account
+
+    return web3, contract, ethereum
   }
 
 
 
   async function AddNewCustomer(){
 
-    console.log("INSIDE FUNC, account = " + account)
-    await contract.methods.addNewCustomer(customerAddress,donorAddress,agreementValue)
+    let _customerAddress = String(customerAddress)
+    let _donorAddress = String(donorAddress)
+    await contract.methods.addNewCustomer(_customerAddress,_donorAddress,agreementValue)
       .send({'from':account})
         .then(console.log("successfully added new customer"))
     
@@ -110,21 +117,24 @@ function App(){
   }
 
   async function setBaseLine(){
-    await contract.methods.setBaseLine(customerAddress,weight1,weight2,weight3)
+    let _customerAddress = String(customerAddress)
+    await contract.methods.setBaseLine(_customerAddress,weight1,weight2,weight3)
       .send({'from':account})
-        .then(console.log("successfully set base line"))
+    (console.log("successfully set base line"))
   }
 
   async function getNewData(){
-    await contract.methods.UpdateOracleData(customerAddress,weight1,weight2,weight3)
+    let _customerAddress = String(customerAddress)
+    await contract.methods.UpdateOracleData(_customerAddress,weight1,weight2,weight3)
       .send({'from':account})
-        .then(console.log("successfully set base line"))
+    (console.log("successfully set base line"))
   }
 
   async function settleAgreement(){
-    await contract.methods.settleAgreement(customerAddress)
+    let _customerAddress = String(customerAddress)
+    await contract.methods.settleAgreement(_customerAddress)
     .send({'from':account})
-      .then(console.log("successfully set base line"))
+    (console.log("successfully set base line"))
 
   }
   
@@ -141,7 +151,11 @@ function App(){
     height: '100vh',
   
     }}>
-    
+
+    <li style={{display: 'flex', justifyContent:'left', alignItems:'center', color: 'black'}}>
+    <a href="https://github.com/Yeti87803643/blockchain-developer-bootcamp-final-project"><b>Documentation</b></a>
+    </li>
+
     <br></br>
     <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
     <h1>BrightLink </h1>
@@ -201,7 +215,7 @@ function App(){
     <input
       type="text"
       value={agreementValue}
-      placeholder="Set Agreement Value"
+      placeholder="Set Funding Value"
       onChange={e => setAgreementValue(e.target.value)} />
     </li>
     <br></br>

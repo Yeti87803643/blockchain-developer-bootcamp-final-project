@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
-// this contract is deployed on Kovan at 0xa442852B9B9A92B277E6aF0FDcAe986EAa1986B3
+// this contract is deployed on Kovan at 0x06724d02B03f95108e96e0cBc71E34A2d7B390F8
 
 pragma solidity ^0.6.6;
 
 import "@chainlink/contracts/src/v0.6/ChainlinkClient.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "/home/joe/Code/BrightLink/interfaces/ILendingPoolAddressesProviderV2.sol";
-import "/home/joe/Code/BrightLink/interfaces/ILendingPoolV2.sol";
+import "/home/joe/Code/blockchain-developer-bootcamp-final-project/interfaces/ILendingPoolAddressesProviderV2.sol";
+import "/home/joe/Code/blockchain-developer-bootcamp-final-project/interfaces/ILendingPoolV2.sol";
 
 contract BrightLink is ChainlinkClient {
 
@@ -127,7 +127,7 @@ contract BrightLink is ChainlinkClient {
     @dev
     returns accumulated aDai to Aave pool, retrieving Dai at 1:1
      */
-    function WithdrawFundsFromAave(uint _amount) internal onlyOwner {
+    function WithdrawFundsFromAave(uint _amount) internal {
     	
         adai.approve(poolAddress, _amount);
         adai.approve(address(this), _amount);
@@ -141,7 +141,7 @@ contract BrightLink is ChainlinkClient {
     sets weighting for aggregating the oracle data
     default is to trust all oracles equally (100,100,100)
      */
-    function setWeights(uint16 _w1, uint16 _w2, uint16 _w3) internal onlyOwner{
+    function setWeights(uint16 _w1, uint16 _w2, uint16 _w3) internal {
 
         w1 = _w1;
         w2 = _w2;
@@ -153,7 +153,7 @@ contract BrightLink is ChainlinkClient {
     @dev
     assumes remote sensing scripts have been run setting baseline data at the API endpoints
      */
-    function setBaseLine(address _customer, uint16 _w1, uint16 _w2, uint16 _w3) public onlyOwner {
+    function setBaseLine(address _customer, uint16 _w1, uint16 _w2, uint16 _w3) public {
         
         int id = customerToAgreementID[_customer];
         setWeights(_w1, _w2, _w3);
@@ -184,7 +184,7 @@ contract BrightLink is ChainlinkClient {
     agreed value and paying it to the customer's wallet if the
     updated values exceeds the baseline. Otherwise, return to donor.
      */
-    function settleAgreement(address _customer) public onlyOwner {
+    function settleAgreement(address _customer) public {
 
         // get ID from customer address
         int agreementId = customerToAgreementID[_customer];

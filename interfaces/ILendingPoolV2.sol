@@ -3,7 +3,7 @@ pragma solidity ^0.6.6;
 pragma experimental ABIEncoderV2;
 
 import {ILendingPoolAddressesProviderV2} from './ILendingPoolAddressesProviderV2.sol';
-import {DataTypes} from '/home/joe/Code/BrightLink/libraries/DataTypes.sol';
+import {DataTypes} from '/home/joe/Code/blockchain-developer-bootcamp-final-project/libraries/DataTypes.sol';
 
 interface ILendingPoolV2 {
   /**
