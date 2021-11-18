@@ -6,6 +6,7 @@ from brownie import (
     network,
 )
 
+
 @pytest.fixture
 def checkNetwork():
     assert network.show_active() == 'kovan'
@@ -17,7 +18,7 @@ def set_threshold():
 
 @pytest.fixture(scope="module")
 def getDeployedContract():
-    return Contract('0xbb3e97fB7B6570fDdA011665A0070a4C1a63c848')
+    return Contract('0xC2089D4B373F5644fB37C6bd40D91F71092e8Ba3')
 
 @pytest.fixture(scope='module')
 def set_deposit_amount():

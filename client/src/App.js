@@ -103,9 +103,7 @@ function App(){
 
   async function AddNewCustomer(){
 
-    let _customerAddress = String(customerAddress)
-    let _donorAddress = String(donorAddress)
-    await contract.methods.addNewCustomer(_customerAddress,_donorAddress,agreementValue)
+    await contract.methods.addNewCustomer(customerAddress,donorAddress, agreementValue)
       .send({'from':account})
         .then(console.log("successfully added new customer"))
     
@@ -117,24 +115,23 @@ function App(){
   }
 
   async function setBaseLine(){
-    let _customerAddress = String(customerAddress)
-    await contract.methods.setBaseLine(_customerAddress,weight1,weight2,weight3)
+    await contract.methods.setBaseLine(customerAddress)
       .send({'from':account})
-    (console.log("successfully set base line"))
+        .then(console.log("initial data successfully obtained from oracle"))
   }
 
   async function getNewData(){
     let _customerAddress = String(customerAddress)
-    await contract.methods.UpdateOracleData(_customerAddress,weight1,weight2,weight3)
+    await contract.methods.UpdateOracleData(_customerAddress)
       .send({'from':account})
-    (console.log("successfully set base line"))
+      console.log("updated data successfully obtained from oracle")
   }
 
   async function settleAgreement(){
     let _customerAddress = String(customerAddress)
     await contract.methods.settleAgreement(_customerAddress)
     .send({'from':account})
-    (console.log("successfully set base line"))
+    console.log("the contract has paid DAI to either the customer or donor")
 
   }
   
@@ -152,7 +149,7 @@ function App(){
   
     }}>
 
-    <li style={{display: 'flex', justifyContent:'left', alignItems:'center', color: 'black'}}>
+    <li style={{position:"absolute",right:5, bottom: 30, color: 'black'}}>
     <a href="https://github.com/Yeti87803643/blockchain-developer-bootcamp-final-project"><b>Documentation</b></a>
     </li>
 
@@ -169,16 +166,16 @@ function App(){
     {<button onClick={loadBlockChain} > Connect Wallet</button>}
     </li>
       
-    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'green'}}>
+    <li style={{position:"absolute",left:5, top: 5, color: 'green'}}>
     {connected? <p><b>CONNECTED!</b></p> : null}
     </li>
 
-    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
-    <p>Contract is deployed at: {contractAddress}</p>
+    <li style={{position:"absolute",left:5, top: 30, color: 'black'}}>
+    <p>Contract is deployed at:</p> <p>{contractAddress}</p>
     </li>
 
-    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
-    <p>Connected to account: {account}</p>
+    <li style={{position:"absolute",left:5, top: 100, color: 'black'}}>
+    <p>Connected to account:</p><p>{account}</p>
     </li>
 
       
@@ -226,34 +223,17 @@ function App(){
     <br></br>
     <br></br>
 
-    <p><b>Change satellite weightings and query remote sensing data</b></p>
-    <p><i>(please send 0.6 LINK to the contract to fund these queries</i></p>
-    <input
-      type="text"
-      value={weight1}
-      placeholder="Set weight for Sentinel (%)"
-      onChange={e => setWeight1(e.target.value)} />
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    <p><b>Query Satellite data</b></p>
 
-    <input
-      type="text"
-      value={weight2}
-      placeholder="Set weight for Landsat (%)"
-      onChange={e => setWeight2(e.target.value)} />
-
-    <input
-      type="text"
-      value={weight3}
-      placeholder="Set weight for MODIS (%)"
-      onChange={e => setWeight3(e.target.value)} />
-
-
-    {<button onClick={setBaseLine}>Set Baseline</button>}
-    {<button onClick={getNewData}>Get Updated Data</button>}
-
+    </li>
     <br></br>
-    <br></br>
+ 
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    {<button onClick={setBaseLine}>Set Baseline</button>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    {<button onClick={getNewData}>Get Updated Data</button>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     {<button onClick={settleAgreement}>Request Payout</button>}
-    
+    </li>
     </div>
 
   );

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// this contract is deployed on Kovan at 0x06724d02B03f95108e96e0cBc71E34A2d7B390F8
+// this contract is deployed on Kovan at 0xC2089D4B373F5644fB37C6bd40D91F71092e8Ba3
 
 pragma solidity ^0.6.6;
 
@@ -30,9 +30,9 @@ contract BrightLink is ChainlinkClient {
     ILendingPoolAddressesProviderV2 public provider;
     uint16 index;
     uint256 aggregateData;
-    uint16 w1;
-    uint16 w2;
-    uint16 w3;
+    uint16 w1 = 100;
+    uint16 w2 = 100;
+    uint16 w3 = 100;
     uint16 minResponses = 2;
     uint16 badOracles = 0;
     int Id = 0;
@@ -114,7 +114,7 @@ contract BrightLink is ChainlinkClient {
     sends all dai in contract to Aave lending pool,
     returning aDai
      */
-    function depositFundsToAave() internal {
+    function depositFundsToAave() internal{
 
         dai.approve(poolAddress,1000000e18);
         dai.approve(address(this),1000000e18);
@@ -127,7 +127,7 @@ contract BrightLink is ChainlinkClient {
     @dev
     returns accumulated aDai to Aave pool, retrieving Dai at 1:1
      */
-    function WithdrawFundsFromAave(uint _amount) internal {
+    function WithdrawFundsFromAave(uint _amount) internal{
     	
         adai.approve(poolAddress, _amount);
         adai.approve(address(this), _amount);
@@ -153,10 +153,9 @@ contract BrightLink is ChainlinkClient {
     @dev
     assumes remote sensing scripts have been run setting baseline data at the API endpoints
      */
-    function setBaseLine(address _customer, uint16 _w1, uint16 _w2, uint16 _w3) public {
+    function setBaseLine(address _customer) public {
         
         int id = customerToAgreementID[_customer];
-        setWeights(_w1, _w2, _w3);
         requestDataFromAPI();
         validateOracleData();
         agreementIdToBaseline[id] = aggregateData;
@@ -167,10 +166,9 @@ contract BrightLink is ChainlinkClient {
     @dev
     assumes remote sensing scripts have been run a second time, updating the API endpoints
      */
-    function UpdateOracleData(address _customer, uint16 _w1, uint16 _w2, uint16 _w3) public {
+    function UpdateOracleData(address _customer) public {
         
         int id = customerToAgreementID[_customer];
-        setWeights(_w1, _w2, _w3);
         requestDataFromAPI();
         validateOracleData();
         agreementIdToRetrievedData[id] = aggregateData;
@@ -212,6 +210,7 @@ contract BrightLink is ChainlinkClient {
         // set transaction value to 0 to prevent re-spending
         agreementIdToValue[agreementId] = 0;
 
+        customerToAgreementID[_customer] = 0;
 
     }
 
