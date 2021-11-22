@@ -21,6 +21,7 @@ function App(){
   const[weight2, setWeight2] = useState()
   const[weight3, setWeight3] = useState()
   const [connected, connect] = useState()
+  const[ndvi, set_ndvi] = useState()
 
   
   // loadBlockChain detects metamask account
@@ -85,10 +86,8 @@ function App(){
     console.log("chain: " + chain)
     console.log("contract successfully loaded")
     
-    setWeight1(100)
-    setWeight2(100)
-    setWeight3(100)
-    
+    set_ndvi(0)
+
     if (account){
       connect(true)
 
@@ -135,6 +134,11 @@ function App(){
 
   }
   
+  async function viewNDVIdata(){
+    let a = await contract.methods.viewValueFromOracle().call()
+    set_ndvi(a)
+    
+  }
 
   return (
   
@@ -234,6 +238,13 @@ function App(){
     {<button onClick={getNewData}>Get Updated Data</button>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     {<button onClick={settleAgreement}>Request Payout</button>}
     </li>
+
+    <li style={{display: 'flex', justifyContent:'center', alignItems:'center', color: 'black'}}>
+    {<button onClick={viewNDVIdata}>View NDVI data</button>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p> vegetation coverage: {ndvi} %</p>
+    </li>
+
+
+
     </div>
 
   );
