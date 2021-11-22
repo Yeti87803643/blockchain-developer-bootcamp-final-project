@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/blockchain-developer-bootcamp-final-project/static/css/main.5ddd067a.chunk.css",
-    "main.js": "/blockchain-developer-bootcamp-final-project/static/js/main.bb9b4fad.chunk.js",
-    "main.js.map": "/blockchain-developer-bootcamp-final-project/static/js/main.bb9b4fad.chunk.js.map",
+    "main.js": "/blockchain-developer-bootcamp-final-project/static/js/main.cef165ba.chunk.js",
+    "main.js.map": "/blockchain-developer-bootcamp-final-project/static/js/main.cef165ba.chunk.js.map",
     "runtime-main.js": "/blockchain-developer-bootcamp-final-project/static/js/runtime-main.2b34735b.js",
     "runtime-main.js.map": "/blockchain-developer-bootcamp-final-project/static/js/runtime-main.2b34735b.js.map",
-    "static/js/2.5ee76934.chunk.js": "/blockchain-developer-bootcamp-final-project/static/js/2.5ee76934.chunk.js",
-    "static/js/2.5ee76934.chunk.js.map": "/blockchain-developer-bootcamp-final-project/static/js/2.5ee76934.chunk.js.map",
+    "static/js/2.7dfbfba3.chunk.js": "/blockchain-developer-bootcamp-final-project/static/js/2.7dfbfba3.chunk.js",
+    "static/js/2.7dfbfba3.chunk.js.map": "/blockchain-developer-bootcamp-final-project/static/js/2.7dfbfba3.chunk.js.map",
     "static/js/3.ecfdca46.chunk.js": "/blockchain-developer-bootcamp-final-project/static/js/3.ecfdca46.chunk.js",
     "static/js/3.ecfdca46.chunk.js.map": "/blockchain-developer-bootcamp-final-project/static/js/3.ecfdca46.chunk.js.map",
     "index.html": "/blockchain-developer-bootcamp-final-project/index.html",
     "static/css/main.5ddd067a.chunk.css.map": "/blockchain-developer-bootcamp-final-project/static/css/main.5ddd067a.chunk.css.map",
-    "static/js/2.5ee76934.chunk.js.LICENSE.txt": "/blockchain-developer-bootcamp-final-project/static/js/2.5ee76934.chunk.js.LICENSE.txt",
+    "static/js/2.7dfbfba3.chunk.js.LICENSE.txt": "/blockchain-developer-bootcamp-final-project/static/js/2.7dfbfba3.chunk.js.LICENSE.txt",
     "static/media/TreeBorder2.e33638a7.jpg": "/blockchain-developer-bootcamp-final-project/static/media/TreeBorder2.e33638a7.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.2b34735b.js",
-    "static/js/2.5ee76934.chunk.js",
+    "static/js/2.7dfbfba3.chunk.js",
     "static/css/main.5ddd067a.chunk.css",
-    "static/js/main.bb9b4fad.chunk.js"
+    "static/js/main.cef165ba.chunk.js"
   ]
 }
