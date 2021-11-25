@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// this contract is deployed on Kovan at 0xC2089D4B373F5644fB37C6bd40D91F71092e8Ba3
+// this contract is deployed on Kovan at 0xe55c7b0d6EDc142Ce30ec8806Dd4bcCbF372ccB2
 
 pragma solidity ^0.6.6;
 
@@ -95,15 +95,18 @@ contract BrightLink is ChainlinkClient {
 
         // require that the customer does not have an existing agreement
         require(customerToAgreementID[_customer] <= 0,"customer already exists");
-        // use require to ensure no agreement is estabished unless transaction succeeds
-        require(dai.transferFrom(_donor, address(this), _value));
-    
+
+        
         depositedFunds += _value;
         customerToAgreementID[_customer] = Id;
         donorToAgreementID[_donor] = Id;
         agreementIdToValue[Id] = _value;
         agreementIdToDonor[Id]  = _donor;
+        
+        
+        require(dai.transferFrom(_donor, address(this), _value));
         depositFundsToAave();
+
         Id+=1; 
     }
 
@@ -194,6 +197,15 @@ contract BrightLink is ChainlinkClient {
 
         WithdrawFundsFromAave(amount);
 
+        // subtract expended amount from the running total of deposits
+        depositedFunds-= agreementIdToValue[agreementId];
+        
+        // set transaction value to 0 to prevent re-spending
+        agreementIdToValue[agreementId] = 0;
+
+        customerToAgreementID[_customer] = 0;
+
+
         if (retrieval > threshold){
             
             require(dai.transfer(_customer, amount));
@@ -204,13 +216,7 @@ contract BrightLink is ChainlinkClient {
             require(dai.transfer(donor, amount));   
         }         
 
-        // subtract expended amount from the running total of deposits
-        depositedFunds-= agreementIdToValue[agreementId];
-        
-        // set transaction value to 0 to prevent re-spending
-        agreementIdToValue[agreementId] = 0;
 
-        customerToAgreementID[_customer] = 0;
 
     }
 
