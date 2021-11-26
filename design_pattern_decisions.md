@@ -2,22 +2,22 @@
 
 ## Restricting access
 
-onlyOwner modfier restrcts anyone but the contract owner from taking profits
+onlyOwner modfier restricts anyone but the contract owner from taking profits
 moving funds in and out of aave can only be done by internal functions
 
 ## Inheritance and inter-contract execution
-inherits from chainlink and open zeppelin
-contract interacts with aave lending pool contracts
+BrightLink contract inherits from chainlink and also uses the IERC20 contract from open zeppelin
+BrightLink contract also uses a lendng pool provider contract for Aave lending pool
 
-## oracles
-contract makes calls to external oracles, synthesizes and updates contract state
+## Oracles
+BrightLink contract makes calls to external API using a Chainlink oracle, synthesizes and updates contract state
 
 ## upgradeable contracts
-aave pool uses a lending pool provider contract
+Aave pool uses a lending pool provider contract
 
 ## State Machine
-mapping keep strack of status of customer/donor agreements, current data etc
-settling request burns agreement
+Mapping keeps track of status of customer/donor agreements, current data etc
+Settling agreement nullifies data in mapping
 
 ## Circuit Breaker
-escapehatch function withdraws all unspent funds back to the contract owner  
+"EscapeHatch" function withdraws all unspent funds back to the contract owner  

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// this contract is deployed on Kovan at 0xe55c7b0d6EDc142Ce30ec8806Dd4bcCbF372ccB2
+// this contract is deployed on Kovan at 0xB5600D46f8e7191B3791eCCEC7697a537976d4d5
 
 pragma solidity ^0.6.6;
 
@@ -159,8 +159,11 @@ contract BrightLink is ChainlinkClient {
     function setBaseLine(address _customer) public {
         
         int id = customerToAgreementID[_customer];
-        requestDataFromAPI();
-        validateOracleData();
+
+        // MOCKING: REPLACE NECT TWO LINES WITH HARD-CODED VALUE
+        // requestDataFromAPI();
+        // validateOracleData();
+        aggregateData = 5;
         agreementIdToBaseline[id] = aggregateData;
 
     }

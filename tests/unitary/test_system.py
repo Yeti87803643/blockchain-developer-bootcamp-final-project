@@ -62,7 +62,6 @@ def test_initial_balances(load_customer, load_donor, load_owner, get_deployed_co
 def test_add_new_customer(set_deposit_amount, get_deployed_contract, load_customer, load_donor, load_owner):
 
     
-
     dai = interface.IERC20('0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD')
     contract = get_deployed_contract
     dai.approve(contract, set_deposit_amount*1.5, {'from':load_donor})
@@ -142,10 +141,21 @@ def test_oracle(set_deposit_amount, get_deployed_contract, load_customer, load_d
 
 
 def test_settle(set_deposit_amount, get_deployed_contract, load_customer, load_donor, load_owner):
+    """
+    This mocked version will always pay out to the customer because the oracle data always > baseline
 
+    Check this is true
+    """
     contract = get_deployed_contract
+    dai = interface.IERC20('0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD')
+
+    initial_balance = dai.balanceOf(load_customer)
     
     contract.settleAgreement(load_customer, {'from':load_owner})
+    
+    final_balance = dai.balanceOf(load_customer)
+    
+    assert(final_balance > initial_balance)
 
     return
 
