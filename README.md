@@ -23,7 +23,7 @@ For the community greening project the remote sensing scripts use Google Earth E
 
 The public front-end for this project is at "https://yeti87803643.github.io/blockchain-developer-bootcamp-final-project/". Here, a user can connect using MetaMask and interact with the contract. Please note that the front end only allows a user to register a new agreement, wait some period of time, then request a settlement. This is super simple and the correct functionality can be observed by watching the balances of the relevant accounts. The walkthrough video shows the more interesting functionality (profit generation via aave lending, updating staellite remote sensing values).
 
-<img src="Assets/app_screenshot.jpg" width=1500>
+<img src="/Assets/app_screenshot.jpg" width=1500>
 
 ## Ethereum Address
 
