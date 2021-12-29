@@ -62,15 +62,15 @@ I have prefunded three dummy accounts on Kovan with ETH, DAI and LINK to enable 
 ```bash 
 brownie accounts new main
 (when prompted provide the following private key:)
-<cb8ad6755809dcd402fecac055851697de09f66f93abb4b9bdb884420a3af879>
+REDACTED: available on request
 
 brownie accounts new account2
 (when prompted provide the following private key:)
-<7362244780c430f7c1e11dc72c81c5caae35b01f7dc3ce624d6de875b14e9483>
+REDACTED: available on request
 
 brownie accounts new account3
 (when prompted provide the following private key:)
-<1adc4bb2097926d60ac31a23ac613ffa16f4263312748c094518bfc48568733d>
+REDACTED: available on request
 
 
 ```
